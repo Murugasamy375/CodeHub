@@ -1,0 +1,1056 @@
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard-layout {
+  min-height: 100vh;
+
+  display: flex;
+
+  background: #0f1117;
+
+  color: #f5f5f7;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.dashboard-sidebar {
+  width: 245px;
+
+  min-height: 100vh;
+
+  background: #14161d;
+
+  border-right: 1px solid #252832;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 24px 15px;
+
+  box-sizing: border-box;
+
+  position: sticky;
+
+  top: 0;
+
+  height: 100vh;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.sidebar-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 3px 8px 28px;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px;
+
+  background: #7c3aed;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 18px;
+
+  font-weight: 800;
+}
+
+.sidebar-brand h2 {
+  margin: 0;
+
+  color: #f5f5f7;
+
+  font-size: 16px;
+}
+
+.sidebar-brand span {
+  display: block;
+
+  color: #737987;
+
+  font-size: 9px;
+
+  margin-top: 2px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.sidebar-nav {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.sidebar-nav button {
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  color: #8f95a3;
+
+  border-radius: 9px;
+
+  padding: 11px 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 550;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-nav button:hover {
+  background: #1d2029;
+
+  color: #e8e8ed;
+}
+
+.sidebar-nav button.active {
+  background: #251a3c;
+
+  color: #b18cff;
+}
+
+.nav-icon {
+  width: 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   SIDEBAR USER
+   ========================================================= */
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+.sidebar-user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 12px 8px;
+
+  border-top: 1px solid #252832;
+
+  margin-bottom: 8px;
+}
+
+.user-avatar,
+.topbar-avatar {
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #7c3aed;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  flex-shrink: 0;
+}
+
+.user-details {
+  min-width: 0;
+}
+
+.user-details strong {
+  display: block;
+
+  color: #e7e8ec;
+
+  font-size: 12px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.user-details span {
+  display: block;
+
+  color: #6f7481;
+
+  font-size: 9px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.logout-button {
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  color: #858b99;
+
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.logout-button:hover {
+  background: #1d2029;
+
+  color: #ef8d8d;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.dashboard-main {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 28px 35px 55px;
+
+  max-width: 1450px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.dashboard-topbar {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 27px;
+}
+
+.dashboard-eyebrow {
+  color: #7c3aed;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.dashboard-topbar h1 {
+  margin: 5px 0 0;
+
+  color: #f5f5f7;
+
+  font-size: 25px;
+
+  letter-spacing: -0.4px;
+}
+
+.topbar-user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.topbar-user strong {
+  display: block;
+
+  color: #e7e8ec;
+
+  font-size: 12px;
+}
+
+.topbar-user span {
+  display: block;
+
+  color: #707683;
+
+  font-size: 10px;
+
+  margin-top: 2px;
+}
+
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+.welcome-section {
+  background: linear-gradient(
+    110deg,
+    #19152a,
+    #15171e
+  );
+
+  border: 1px solid #302943;
+
+  border-radius: 16px;
+
+  padding: 25px 27px;
+
+  margin-bottom: 20px;
+}
+
+.welcome-label {
+  color: #9c78ed;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.welcome-section h2 {
+  margin: 7px 0 5px;
+
+  color: #f3f3f6;
+
+  font-size: 21px;
+
+  letter-spacing: -0.4px;
+}
+
+.welcome-section p {
+  margin: 0;
+
+  color: #858b99;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+   ========================================================= */
+
+.dashboard-cards {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+
+  border: 1px solid #e8e8ed;
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.18);
+}
+
+.card-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+}
+
+.card-label {
+  display: block;
+
+  color: #7c3aed;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+
+  margin-bottom: 6px;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #20222c;
+
+  font-size: 17px;
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 10px;
+
+  background: #f0eaff;
+
+  color: #7c3aed;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   CHALLENGE CARD
+   ========================================================= */
+
+.challenge-card-content {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin: 24px 0 20px;
+}
+
+.challenge-number {
+  font-size: 35px;
+
+  font-weight: 750;
+
+  color: #7c3aed;
+
+  line-height: 1;
+}
+
+.challenge-card-content strong {
+  display: block;
+
+  color: #292b35;
+
+  font-size: 13px;
+}
+
+.challenge-card-content p {
+  margin: 4px 0 0;
+
+  color: #858995;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+.card-action-button,
+.view-tasks-button {
+  width: 100%;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #f0eaff;
+
+  color: #6d28d9;
+
+  padding: 10px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.card-action-button:hover,
+.view-tasks-button:hover {
+  background: #e7dcff;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TASK COUNT
+   ========================================================= */
+
+.task-count-content {
+  min-height: 95px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  margin: 8px 0;
+}
+
+.task-count-number {
+  color: #7c3aed;
+
+  font-size: 39px;
+
+  line-height: 1;
+
+  font-weight: 750;
+}
+
+.task-count-label {
+  color: #858995;
+
+  font-size: 11px;
+
+  margin-top: 6px;
+}
+
+.task-count-loading {
+  color: #9b9eaa;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   COMPACT CALENDAR
+   ========================================================= */
+
+.calendar-card {
+  background: #161922;
+
+  border: 1px solid #292e39;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CALENDAR HEADER
+   ========================================================= */
+
+.calendar-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.calendar-header h2 {
+  margin: 0;
+
+  color: #f1f3f7;
+
+  font-size: 16px;
+
+  font-weight: 650;
+}
+
+.calendar-header p {
+  margin: 4px 0 0;
+
+  color: #747b88;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   CALENDAR CONTROLS
+   ========================================================= */
+
+.calendar-controls {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.calendar-controls button {
+  height: 29px;
+
+  min-width: 29px;
+
+  border: 1px solid #303541;
+
+  border-radius: 7px;
+
+  background: #1e222b;
+
+  color: #aeb4c0;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.calendar-controls button:hover {
+  background: #292e39;
+
+  color: #ffffff;
+
+  border-color: #454b58;
+}
+
+.calendar-controls .calendar-today-button {
+  padding: 0 10px;
+
+  font-size: 10px;
+
+  font-weight: 650;
+}
+
+
+/* =========================================================
+   MONTH TITLE
+   ========================================================= */
+
+.calendar-month-title {
+  text-align: center;
+
+  color: #e4e7ec;
+
+  font-size: 14px;
+
+  font-weight: 650;
+
+  margin: 17px 0 12px;
+}
+
+
+/* =========================================================
+   CALENDAR GRID
+   ========================================================= */
+
+.simple-calendar-grid {
+  width: 100%;
+
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 4px;
+}
+
+
+/* =========================================================
+   WEEKDAYS
+   ========================================================= */
+
+.simple-calendar-weekday {
+  text-align: center;
+
+  color: #707784;
+
+  font-size: 9px;
+
+  font-weight: 650;
+
+  padding: 5px 0;
+}
+
+
+/* =========================================================
+   DAYS
+   ========================================================= */
+
+.simple-calendar-day {
+  height: 32px;
+
+  border-radius: 6px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #aeb4c0;
+
+  font-size: 11px;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.simple-calendar-day:not(.empty-day):hover {
+  background: #252a34;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   TODAY
+   ========================================================= */
+
+.simple-calendar-day.calendar-today {
+  background: #7c3aed;
+
+  color: #ffffff;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 3px 8px rgba(124, 58, 237, 0.25);
+}
+
+.simple-calendar-day.calendar-today:hover {
+  background: #8b5cf6;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   EMPTY CALENDAR CELLS
+   ========================================================= */
+
+.simple-calendar-day.empty-day {
+  pointer-events: none;
+
+  background: transparent;
+}
+
+
+/* =========================================================
+   QUICK ACCESS
+   ========================================================= */
+
+.quick-access-section {
+  margin-top: 5px;
+}
+
+.section-heading {
+  margin-bottom: 13px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  color: #f0f1f4;
+
+  font-size: 18px;
+}
+
+.quick-access-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 13px;
+}
+
+.quick-access-card {
+  border: 1px solid #282c35;
+
+  background: #15181f;
+
+  border-radius: 13px;
+
+  padding: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.quick-access-card:hover {
+  background: #1b1e27;
+
+  border-color: #41355c;
+
+  transform: translateY(-1px);
+}
+
+.quick-icon {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 9px;
+
+  background: #251a3c;
+
+  color: #a984f5;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 13px;
+
+  flex-shrink: 0;
+}
+
+.quick-access-card div {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.quick-access-card strong {
+  display: block;
+
+  color: #e8e9ed;
+
+  font-size: 12px;
+}
+
+.quick-access-card p {
+  margin: 3px 0 0;
+
+  color: #767c89;
+
+  font-size: 10px;
+}
+
+.quick-arrow {
+  color: #707683;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .dashboard-sidebar {
+    width: 215px;
+  }
+
+  .dashboard-main {
+    padding: 25px;
+  }
+
+  .quick-access-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 750px) {
+
+  .dashboard-layout {
+    display: block;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+
+    min-height: auto;
+
+    height: auto;
+
+    position: relative;
+
+    border-right: none;
+
+    border-bottom: 1px solid #252832;
+
+    padding: 15px;
+  }
+
+  .sidebar-brand {
+    padding-bottom: 15px;
+  }
+
+  .sidebar-nav {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sidebar-bottom {
+    margin-top: 15px;
+  }
+
+  .dashboard-main {
+    padding: 22px 15px 45px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-topbar {
+    align-items: flex-start;
+  }
+
+  .topbar-user {
+    display: none;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .calendar-card {
+    padding: 16px;
+  }
+
+  .calendar-header {
+    align-items: flex-start;
+  }
+
+  .calendar-controls .calendar-today-button {
+    display: none;
+  }
+
+  .simple-calendar-day {
+    height: 30px;
+
+    font-size: 10px;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .welcome-section {
+    padding: 20px;
+  }
+
+  .welcome-section h2 {
+    font-size: 18px;
+  }
+
+  .quick-access-grid {
+    grid-template-columns: 1fr;
+  }
+}
