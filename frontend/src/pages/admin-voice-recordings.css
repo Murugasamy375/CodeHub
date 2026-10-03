@@ -1,0 +1,384 @@
+.admin-voice-page {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 32px;
+  background: #0d1117;
+  color: #f0f6fc;
+  overflow-x: hidden;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.admin-voice-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.admin-voice-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-voice-label {
+  margin-bottom: 5px;
+  color: #58a6ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.admin-voice-title h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.admin-voice-title p {
+  margin: 7px 0 0;
+  color: #8b949e;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.admin-voice-back-button,
+.admin-voice-refresh-button {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  background: #161b22;
+  color: #c9d1d9;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.admin-voice-back-button:hover,
+.admin-voice-refresh-button:hover {
+  background: #21262d;
+}
+
+.admin-voice-refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.admin-voice-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(180px, 240px));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.admin-voice-summary-card {
+  padding: 18px;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  background: #161b22;
+}
+
+.admin-voice-summary-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: #8b949e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.admin-voice-summary-card strong {
+  font-size: 26px;
+}
+
+
+/* =====================================================
+   DATE GROUP
+===================================================== */
+
+.admin-voice-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.admin-voice-date-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   DATE HEADER
+===================================================== */
+
+.admin-voice-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 20px;
+
+  border: 1px solid #30363d;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+
+  background: #161b22;
+}
+
+.admin-voice-date-label {
+  color: #8b949e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.admin-voice-date-header h2 {
+  margin: 5px 0 3px;
+  font-size: 21px;
+}
+
+.admin-voice-date-header p {
+  margin: 0;
+  color: #8b949e;
+}
+
+.admin-voice-count {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  color: #8b949e;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   RECORDING LIST
+===================================================== */
+
+.admin-voice-recording-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =====================================================
+   RECORDING CARD
+===================================================== */
+
+.admin-voice-recording-card {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 0.7fr)
+    minmax(320px, 1.3fr);
+
+  gap: 24px;
+  align-items: center;
+
+  padding: 20px;
+
+  border: 1px solid #30363d;
+  border-top: 1px solid #21262d;
+
+  background: #0d1117;
+}
+
+.admin-voice-recording-card:last-child {
+  border-radius: 0 0 12px 12px;
+}
+
+
+/* =====================================================
+   USER
+===================================================== */
+
+.admin-voice-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.admin-voice-avatar {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid #30363d;
+
+  background: #21262d;
+
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.admin-voice-user-info {
+  min-width: 0;
+}
+
+.admin-voice-user-info h3 {
+  margin: 0 0 3px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 15px;
+}
+
+.admin-voice-user-info p {
+  margin: 0 0 5px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #8b949e;
+  font-size: 13px;
+}
+
+.admin-voice-user-info span {
+  color: #6e7681;
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
+.admin-voice-player {
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-voice-player audio {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.admin-voice-unavailable {
+  padding: 12px;
+  border-radius: 8px;
+  background: #161b22;
+  color: #8b949e;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   STATES
+===================================================== */
+
+.admin-voice-state {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 70px 20px;
+
+  border: 1px solid #30363d;
+  border-radius: 12px;
+
+  background: #161b22;
+
+  text-align: center;
+}
+
+.admin-voice-state-icon {
+  margin-bottom: 12px;
+  font-size: 38px;
+}
+
+.admin-voice-state h2 {
+  margin: 0 0 8px;
+}
+
+.admin-voice-state p {
+  margin: 0;
+  color: #8b949e;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.admin-voice-error {
+  margin-bottom: 20px;
+  padding: 14px;
+
+  border: 1px solid #f85149;
+  border-radius: 8px;
+
+  background: rgba(248, 81, 73, 0.08);
+  color: #f85149;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+  .admin-voice-recording-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .admin-voice-player {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .admin-voice-page {
+    padding: 20px;
+  }
+
+  .admin-voice-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .admin-voice-title {
+    width: 100%;
+    order: 3;
+  }
+
+  .admin-voice-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-voice-date-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-voice-count {
+    align-self: flex-start;
+  }
+}

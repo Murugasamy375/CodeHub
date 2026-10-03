@@ -1,24 +1,54 @@
 import { useEffect, useState } from "react";
+
 import { signOut } from "../services/authService";
 import { getTaskCount } from "../services/taskService";
+import { getCurrentMeeting } from "../services/meetingService";
+
 import "./dashboard.css";
 
-function Dashboard({ session, onNavigate }) {
+
+function Dashboard({ session,profile, onNavigate }) {
   const [activeMenu, setActiveMenu] = useState("dashboard");
+
   const [loggingOut, setLoggingOut] = useState(false);
+
+  // --------------------------------------------------
+  // TASKS
+  // --------------------------------------------------
 
   const [taskCount, setTaskCount] = useState(0);
   const [taskCountLoading, setTaskCountLoading] = useState(true);
 
-  // Calendar
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  // --------------------------------------------------
+  // MEETING
+  // --------------------------------------------------
+
+  const [meeting, setMeeting] = useState(null);
+  const [meetingLoading, setMeetingLoading] = useState(true);
+
+  // --------------------------------------------------
+  // PROFILE / ADMIN
+  // --------------------------------------------------
+
+  // --------------------------------------------------
+  // CALENDAR
+  // --------------------------------------------------
+
+  const [currentMonth, setCurrentMonth] = useState(
+    new Date()
+  );
+
+  // --------------------------------------------------
+  // USER DETAILS
+  // --------------------------------------------------
 
   const userName =
     session?.user?.user_metadata?.full_name ||
     session?.user?.email?.split("@")[0] ||
     "User";
 
-  const userEmail = session?.user?.email || "";
+  const userEmail =
+    session?.user?.email || "";
 
   // =========================================================
   // LOAD TASK COUNT
@@ -33,7 +63,11 @@ function Dashboard({ session, onNavigate }) {
 
         setTaskCount(count);
       } catch (error) {
-        console.error("Failed to load task count:", error);
+        console.error(
+          "Failed to load task count:",
+          error
+        );
+
         setTaskCount(0);
       } finally {
         setTaskCountLoading(false);
@@ -44,11 +78,47 @@ function Dashboard({ session, onNavigate }) {
   }, []);
 
   // =========================================================
+  // LOAD CURRENT MEETING
+  // =========================================================
+
+  useEffect(() => {
+    const loadMeeting = async () => {
+      try {
+        setMeetingLoading(true);
+
+        const currentMeeting =
+          await getCurrentMeeting();
+
+        setMeeting(currentMeeting);
+      } catch (error) {
+        console.error(
+          "Failed to load meeting:",
+          error
+        );
+
+        setMeeting(null);
+      } finally {
+        setMeetingLoading(false);
+      }
+    };
+
+    loadMeeting();
+  }, []);
+
+  // =========================================================
+  
+
+  // =========================================================
   // NAVIGATION
   // =========================================================
 
   const handleNavigation = (menu) => {
     setActiveMenu(menu);
+
+    if (menu === "dashboard") {
+      onNavigate("dashboard");
+      return;
+    }
 
     if (menu === "code-editor") {
       onNavigate("code-editor");
@@ -70,6 +140,14 @@ function Dashboard({ session, onNavigate }) {
       return;
     }
 
+    if (menu === "create-meeting") {
+      onNavigate("create-meeting");
+      return;
+    }
+    if (menu === "admin-voice-recordings") {
+  onNavigate("admin-voice-recordings");
+  return;
+}
     onNavigate("dashboard");
   };
 
@@ -83,7 +161,11 @@ function Dashboard({ session, onNavigate }) {
 
       await signOut();
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error(
+        "Logout failed:",
+        error
+      );
+
       setLoggingOut(false);
     }
   };
@@ -117,8 +199,11 @@ function Dashboard({ session, onNavigate }) {
     "Sat",
   ];
 
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
+  const year =
+    currentMonth.getFullYear();
+
+  const month =
+    currentMonth.getMonth();
 
   const firstDay = new Date(
     year,
@@ -135,29 +220,47 @@ function Dashboard({ session, onNavigate }) {
   const calendarDays = [];
 
   // Empty cells before first day
-  for (let i = 0; i < firstDay; i++) {
+  for (
+    let i = 0;
+    i < firstDay;
+    i++
+  ) {
     calendarDays.push(null);
   }
 
   // Actual days
-  for (let day = 1; day <= daysInMonth; day++) {
+  for (
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ) {
     calendarDays.push(day);
   }
 
   const goToPreviousMonth = () => {
     setCurrentMonth(
-      new Date(year, month - 1, 1)
+      new Date(
+        year,
+        month - 1,
+        1
+      )
     );
   };
 
   const goToNextMonth = () => {
     setCurrentMonth(
-      new Date(year, month + 1, 1)
+      new Date(
+        year,
+        month + 1,
+        1
+      )
     );
   };
 
   const goToToday = () => {
-    setCurrentMonth(new Date());
+    setCurrentMonth(
+      new Date()
+    );
   };
 
   const today = new Date();
@@ -210,6 +313,8 @@ function Dashboard({ session, onNavigate }) {
 
         <nav className="sidebar-nav">
 
+          {/* DASHBOARD */}
+
           <button
             className={
               activeMenu === "dashboard"
@@ -227,6 +332,8 @@ function Dashboard({ session, onNavigate }) {
             Dashboard
           </button>
 
+
+          {/* CODE EDITOR */}
 
           <button
             className={
@@ -246,6 +353,8 @@ function Dashboard({ session, onNavigate }) {
           </button>
 
 
+          {/* TODAY'S CHALLENGE */}
+
           <button
             className={
               activeMenu === "challenge"
@@ -263,6 +372,8 @@ function Dashboard({ session, onNavigate }) {
             Today's Challenge
           </button>
 
+
+          {/* MY TASKS */}
 
           <button
             className={
@@ -282,6 +393,8 @@ function Dashboard({ session, onNavigate }) {
           </button>
 
 
+          {/* DISCUSSIONS */}
+
           <button
             className={
               activeMenu === "discussions"
@@ -298,6 +411,60 @@ function Dashboard({ session, onNavigate }) {
 
             Discussions
           </button>
+
+
+          {/* =================================================
+              ADMIN
+          ================================================= */}
+
+          {profile?.role === "admin" && (
+  <>
+    <div className="sidebar-nav-divider" />
+
+    <div className="sidebar-section-label">
+      ADMIN
+    </div>
+
+    <button
+      className={
+        activeMenu === "create-meeting"
+          ? "active"
+          : ""
+      }
+      onClick={() =>
+        handleNavigation(
+          "create-meeting"
+        )
+      }
+    >
+      <span className="nav-icon">
+        📅
+      </span>
+
+      Create Meeting
+    </button>
+
+    <button
+      className={
+        activeMenu ===
+        "admin-voice-recordings"
+          ? "active"
+          : ""
+      }
+      onClick={() =>
+        handleNavigation(
+          "admin-voice-recordings"
+        )
+      }
+    >
+      <span className="nav-icon">
+        🎙
+      </span>
+
+      Voice Recordings
+    </button>
+  </>
+)}
 
         </nav>
 
@@ -384,7 +551,9 @@ function Dashboard({ session, onNavigate }) {
               </strong>
 
               <span>
-                Member
+                {profile?.role === "admin"
+                  ? "Admin"
+                  : "Member"}
               </span>
 
             </div>
@@ -473,7 +642,9 @@ function Dashboard({ session, onNavigate }) {
             <button
               className="card-action-button"
               onClick={() =>
-                handleNavigation("challenge")
+                handleNavigation(
+                  "challenge"
+                )
               }
             >
               Start Challenge →
@@ -549,6 +720,100 @@ function Dashboard({ session, onNavigate }) {
 
 
         {/* =====================================================
+            SUNDAY MEETING
+        ===================================================== */}
+
+        <section className="dashboard-meeting-section">
+
+          <div className="dashboard-section-header">
+
+            <span className="card-label">
+              COMMUNITY
+            </span>
+
+            <h2>
+              Sunday Meeting
+            </h2>
+
+          </div>
+
+
+          {meetingLoading ? (
+
+            <div className="meeting-dashboard-card">
+
+              <div className="meeting-card-content">
+
+                <h3>
+                  Loading meeting...
+                </h3>
+
+              </div>
+
+            </div>
+
+          ) : meeting ? (
+
+            <div className="meeting-dashboard-card">
+
+              <div className="meeting-card-content">
+
+                <span className="meeting-label">
+                  UPCOMING MEETING
+                </span>
+
+                <h3>
+                  {meeting.title}
+                </h3>
+
+                <div className="meeting-details">
+
+                  <span>
+                    📅 {meeting.meeting_date}
+                  </span>
+
+                  <span>
+                    🕐 {meeting.meeting_time}
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <a
+                href={meeting.meeting_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="join-meeting-button"
+              >
+                Join Meeting
+              </a>
+
+            </div>
+
+          ) : (
+
+            <div className="meeting-dashboard-card empty">
+
+              <h3>
+                No meeting scheduled
+              </h3>
+
+              <p>
+                The next CodeHub Sunday meeting
+                will appear here when the admin
+                publishes it.
+              </p>
+
+            </div>
+
+          )}
+
+        </section>
+
+
+        {/* =====================================================
             CALENDAR
         ===================================================== */}
 
@@ -578,7 +843,9 @@ function Dashboard({ session, onNavigate }) {
             <div className="calendar-controls">
 
               <button
-                onClick={goToPreviousMonth}
+                onClick={
+                  goToPreviousMonth
+                }
                 title="Previous month"
               >
                 ‹
@@ -592,7 +859,9 @@ function Dashboard({ session, onNavigate }) {
               </button>
 
               <button
-                onClick={goToNextMonth}
+                onClick={
+                  goToNextMonth
+                }
                 title="Next month"
               >
                 ›
@@ -614,16 +883,18 @@ function Dashboard({ session, onNavigate }) {
 
           <div className="simple-calendar-grid">
 
-            {weekDays.map((day) => (
+            {weekDays.map(
+              (day) => (
 
-              <div
-                key={day}
-                className="simple-calendar-weekday"
-              >
-                {day}
-              </div>
+                <div
+                  key={day}
+                  className="simple-calendar-weekday"
+                >
+                  {day}
+                </div>
 
-            ))}
+              )
+            )}
 
 
             {calendarDays.map(
@@ -636,7 +907,8 @@ function Dashboard({ session, onNavigate }) {
                       ? "empty-day"
                       : ""
                   } ${
-                    day && isToday(day)
+                    day &&
+                    isToday(day)
                       ? "calendar-today"
                       : ""
                   }`}
@@ -678,7 +950,9 @@ function Dashboard({ session, onNavigate }) {
             <button
               className="quick-access-card"
               onClick={() =>
-                handleNavigation("code-editor")
+                handleNavigation(
+                  "code-editor"
+                )
               }
             >
 
@@ -710,7 +984,9 @@ function Dashboard({ session, onNavigate }) {
             <button
               className="quick-access-card"
               onClick={() =>
-                handleNavigation("challenge")
+                handleNavigation(
+                  "challenge"
+                )
               }
             >
 
@@ -777,5 +1053,6 @@ function Dashboard({ session, onNavigate }) {
     </div>
   );
 }
+
 
 export default Dashboard;
