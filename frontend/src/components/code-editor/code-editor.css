@@ -697,3 +697,684 @@
   }
 
 }
+/* =========================================
+   CODE AGENT - FLOATING BUTTON
+========================================= */
+
+.code-agent-floating-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  width: 56px;
+  height: 56px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #238636;
+  color: #ffffff;
+
+  font-size: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+
+  z-index: 1000;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.code-agent-floating-button:hover {
+  transform: scale(1.06);
+}
+
+
+/* =========================================
+   CODE AGENT - CHAT PANEL
+========================================= */
+
+.code-agent-panel {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  width: 380px;
+  height: 560px;
+
+  background: #0d1117;
+
+  border: 1px solid #30363d;
+  border-radius: 12px;
+
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  z-index: 1000;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.code-agent-header {
+  min-height: 58px;
+
+  padding: 12px 14px;
+
+  background: #161b22;
+
+  border-bottom: 1px solid #30363d;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-agent-header div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.code-agent-header strong {
+  font-size: 14px;
+  color: #f0f6fc;
+}
+
+.code-agent-header span {
+  font-size: 11px;
+  color: #8b949e;
+}
+
+
+/* Close button */
+
+.code-agent-close {
+  border: none;
+
+  background: transparent;
+
+  color: #8b949e;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  padding: 4px 8px;
+}
+
+.code-agent-close:hover {
+  color: #f0f6fc;
+}
+
+
+/* =========================================
+   MESSAGE AREA
+========================================= */
+
+.code-agent-messages {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+
+/* =========================================
+   WELCOME SCREEN
+========================================= */
+
+.code-agent-welcome {
+  margin: auto;
+
+  max-width: 280px;
+
+  text-align: center;
+
+  color: #8b949e;
+}
+
+.code-agent-welcome-icon {
+  font-size: 34px;
+
+  margin-bottom: 10px;
+}
+
+.code-agent-welcome h3 {
+  margin: 0 0 8px;
+
+  color: #f0f6fc;
+
+  font-size: 17px;
+}
+
+.code-agent-welcome p {
+  margin: 0 0 10px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.code-agent-welcome small {
+  display: block;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  color: #6e7681;
+}
+
+
+/* =========================================
+   CHAT MESSAGE
+========================================= */
+
+.code-agent-message {
+  max-width: 88%;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* User message */
+
+.code-agent-message.user {
+  align-self: flex-end;
+
+  background: #1f6feb;
+
+  color: #ffffff;
+
+  border-bottom-right-radius: 3px;
+}
+
+
+/* AI message */
+
+.code-agent-message.assistant {
+  align-self: flex-start;
+
+  background: #161b22;
+
+  border: 1px solid #30363d;
+
+  color: #c9d1d9;
+
+  border-bottom-left-radius: 3px;
+}
+
+
+/* Message role */
+
+.code-agent-message-role {
+  font-size: 10px;
+
+  font-weight: 600;
+
+  margin-bottom: 5px;
+
+  opacity: 0.7;
+}
+
+
+/* Message content */
+
+.code-agent-message-content {
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+
+/* =========================================
+   AI THINKING
+========================================= */
+
+.code-agent-typing {
+  color: #8b949e;
+
+  font-style: italic;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.code-agent-error {
+  margin: 0 12px 8px;
+
+  padding: 9px 10px;
+
+  border: 1px solid #f85149;
+
+  border-radius: 7px;
+
+  background: #2d1111;
+
+  color: #ff7b72;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   INPUT AREA
+========================================= */
+
+.code-agent-input-area {
+  padding: 12px;
+
+  background: #161b22;
+
+  border-top: 1px solid #30363d;
+
+  display: flex;
+
+  gap: 8px;
+
+  align-items: flex-end;
+}
+
+
+/* Text input */
+
+.code-agent-input-area textarea {
+  flex: 1;
+
+  resize: none;
+
+  min-height: 42px;
+  max-height: 120px;
+
+  padding: 10px;
+
+  border: 1px solid #30363d;
+
+  border-radius: 8px;
+
+  background: #0d1117;
+
+  color: #f0f6fc;
+
+  outline: none;
+
+  font-family: inherit;
+
+  font-size: 13px;
+}
+
+.code-agent-input-area textarea:focus {
+  border-color: #58a6ff;
+}
+
+.code-agent-input-area textarea::placeholder {
+  color: #6e7681;
+}
+
+
+/* Send button */
+
+.code-agent-input-area button {
+  height: 42px;
+
+  padding: 0 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #238636;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.code-agent-input-area button:hover {
+  opacity: 0.9;
+}
+
+.code-agent-input-area button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .code-agent-floating-button {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .code-agent-panel {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+
+    width: auto;
+    height: 70vh;
+  }
+
+}
+/* =========================================
+   AI CODE BLOCK
+========================================= */
+
+.code-agent-code-block {
+  margin: 10px 0;
+
+  padding: 12px;
+
+  background: #010409;
+
+  border: 1px solid #30363d;
+
+  border-radius: 8px;
+
+  overflow-x: auto;
+
+  font-family:
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #e6edf3;
+
+  white-space: pre;
+
+  text-align: left;
+}
+
+.code-agent-code-block code {
+  font-family: inherit;
+
+  white-space: pre;
+}
+.code-agent-code-block {
+  margin: 10px 0;
+  padding: 12px;
+  background: #010409;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #e6edf3;
+  white-space: pre;
+  text-align: left;
+}
+
+.code-agent-code-block code {
+  font-family: inherit;
+  white-space: pre;
+}
+/* =========================================
+   AI CODE BLOCK
+========================================= */
+
+.code-agent-code-wrapper {
+  margin: 10px 0;
+
+  border: 1px solid #30363d;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: #010409;
+}
+
+
+.code-agent-code-header {
+  height: 34px;
+
+  padding: 0 10px;
+
+  background: #161b22;
+
+  border-bottom: 1px solid #30363d;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+
+.code-agent-code-header span {
+  font-size: 11px;
+
+  color: #8b949e;
+
+  font-weight: 600;
+}
+
+
+.code-agent-copy-button {
+  border: 1px solid #30363d;
+
+  border-radius: 5px;
+
+  padding: 4px 9px;
+
+  background: #21262d;
+
+  color: #c9d1d9;
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+.code-agent-copy-button:hover {
+  background: #30363d;
+}
+
+
+.code-agent-code-block {
+  margin: 0;
+
+  padding: 12px;
+
+  overflow-x: auto;
+
+  font-family:
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #e6edf3;
+
+  white-space: pre;
+
+  text-align: left;
+}
+
+
+.code-agent-code-block code {
+  font-family: inherit;
+
+  white-space: pre;
+}
+/* =========================================
+   AI HEADER ACTIONS
+========================================= */
+
+.code-agent-header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+.code-agent-clear {
+  border: 1px solid #30363d;
+
+  border-radius: 6px;
+
+  padding: 5px 9px;
+
+  background: #21262d;
+
+  color: #c9d1d9;
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+.code-agent-clear:hover {
+  background: #30363d;
+
+  color: #ffffff;
+}
+
+
+.code-agent-clear:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+.code-agent-code-wrapper {
+  margin: 10px 0;
+
+  border: 1px solid #30363d;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: #010409;
+}
+
+
+.code-agent-code-header {
+  height: 34px;
+
+  padding: 0 10px;
+
+  background: #161b22;
+
+  border-bottom: 1px solid #30363d;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+
+.code-agent-code-header span {
+  font-size: 11px;
+
+  color: #8b949e;
+
+  font-weight: 600;
+}
+
+
+.code-agent-copy-button {
+  border: 1px solid #30363d;
+
+  border-radius: 5px;
+
+  padding: 4px 9px;
+
+  background: #21262d;
+
+  color: #c9d1d9;
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+.code-agent-copy-button:hover {
+  background: #30363d;
+}
+
+
+.code-agent-code-block {
+  margin: 0;
+
+  padding: 12px;
+
+  overflow-x: auto;
+
+  font-family:
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #e6edf3;
+
+  white-space: pre;
+
+  text-align: left;
+}
+
+
+.code-agent-code-block code {
+  font-family: inherit;
+
+  white-space: pre;
+}

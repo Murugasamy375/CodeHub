@@ -14,11 +14,16 @@ from app.routes.daily_challenge import (
 from app.routes.voice_submission import (
     router as voice_submission_router,
 )
+from app.routes.code_agent import (
+    router as code_agent_router,
+)
 from app.routes.profile import router as profile_router
 # --------------------------------------------------
 # Paths
 # --------------------------------------------------
-
+from app.routes.voice_analysis import (
+    router as voice_analysis_router,
+)
 BASE_DIR = os.path.dirname(
     os.path.dirname(
         os.path.abspath(__file__)
@@ -115,6 +120,12 @@ app.include_router(profile_router)
 # --------------------------------------------------
 app.include_router(
     voice_submission_router
+)
+app.include_router(
+    voice_analysis_router
+)
+app.include_router(
+    code_agent_router
 )
 @app.get("/api/health")
 def health():

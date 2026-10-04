@@ -5,7 +5,7 @@ import LanguageSelector from "../components/code-editor/LanguageSelector";
 import Toolbar from "../components/code-editor/Toolbar";
 import TestCases from "../components/code-editor/TestCases";
 import NotesPanel from "../components/code-editor/NotesPanel";
-
+import CodeAgent from "../components/code-editor/CodeAgent";
 import { runCode } from "../services/codeService";
 
 import "../components/code-editor/code-editor.css";
@@ -978,7 +978,7 @@ function CodeEditor({ onBack }) {
 
 
         </section>
-
+           <CodeAgent />
 
       </main>
 

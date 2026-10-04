@@ -3,7 +3,9 @@ import {
   useRef,
   useState,
 } from "react";
-
+import {
+  analyzeMyVoice,
+} from "../services/voiceAnalysisService";
 import {
   getCurrentChallenge,
   createChallenge,
@@ -36,7 +38,14 @@ function DailyChallenge({
   const [challengeError, setChallengeError] =
     useState("");
 
+const [aiAnalysis, setAiAnalysis] =
+  useState(null);
 
+const [isAnalyzing, setIsAnalyzing] =
+  useState(false);
+
+const [analysisError, setAnalysisError] =
+  useState("");
   // --------------------------------------------------
   // Admin form state
   // --------------------------------------------------
@@ -213,7 +222,45 @@ function DailyChallenge({
     };
   }, []);
 
+const handleAnalyzeVoice = async () => {
+  if (!challenge?.id) {
+    setAnalysisError(
+      "Challenge information is not available."
+    );
+    return;
+  }
 
+  if (!voiceSubmission) {
+    setAnalysisError(
+      "Please save your voice recording first."
+    );
+    return;
+  }
+
+  try {
+    setIsAnalyzing(true);
+    setAnalysisError("");
+    setAiAnalysis(null);
+
+    const result = await analyzeMyVoice(
+      challenge.id
+    );
+
+    setAiAnalysis(result);
+  } catch (error) {
+    console.error(
+      "Voice analysis failed:",
+      error
+    );
+
+    setAnalysisError(
+      error.response?.data?.detail ||
+        "Failed to analyze your voice. Please try again."
+    );
+  } finally {
+    setIsAnalyzing(false);
+  }
+};
   // --------------------------------------------------
   // Publish challenge
   // --------------------------------------------------
@@ -366,6 +413,8 @@ function DailyChallenge({
   // --------------------------------------------------
 
   const startRecording = async () => {
+    setAiAnalysis(null);
+setAnalysisError("");
     try {
       setVoiceError("");
 
@@ -574,6 +623,8 @@ function DailyChallenge({
         setVoiceSubmission(
           result.submission
         );
+        setAiAnalysis(null);
+setAnalysisError("");
 
         discardLocalRecording();
 
@@ -603,6 +654,8 @@ function DailyChallenge({
       if (!challenge?.id) {
         return;
       }
+      setAiAnalysis(null);
+setAnalysisError("");
 
       const confirmed =
         window.confirm(
@@ -1151,54 +1204,325 @@ Example:
 
                   </>
                 )}
-
-
               {/* ------------------------------------ */}
               {/* Saved recording */}
               {/* ------------------------------------ */}
 
-              {!voiceLoading &&
-                voiceSubmission && (
-                  <div className="voice-saved">
+              {!voiceLoading && voiceSubmission && (
+                <div className="voice-saved">
 
-                    <div className="voice-saved-header">
-                      ✅ Voice recording saved
-                    </div>
-
-                    {voiceSubmission.audio_url && (
-                      <audio
-                        controls
-                        src={
-                          voiceSubmission.audio_url
-                        }
-                      />
-                    )}
-
-
-                    <button
-                      type="button"
-                      className="voice-delete-button"
-                      onClick={
-                        handleDeleteVoice
-                      }
-                      disabled={
-                        isDeletingVoice
-                      }
-                    >
-                      {isDeletingVoice
-                        ? "Deleting..."
-                        : "🗑 Delete & Record Again"}
-                    </button>
-
+                  <div className="voice-saved-header">
+                    ✅ Voice recording saved
                   </div>
-                )}
+
+                  {voiceSubmission.audio_url && (
+                    <audio
+                      controls
+                      src={voiceSubmission.audio_url}
+                    />
+                  )}
+
+                  {/* Delete Voice */}
+                  <button
+                    type="button"
+                    className="voice-delete-button"
+                    onClick={handleDeleteVoice}
+                    disabled={isDeletingVoice}
+                  >
+                    {isDeletingVoice
+                      ? "Deleting..."
+                      : "🗑 Delete & Record Again"}
+                  </button>
+
+                  {/* Analyze Voice */}
+                  <button
+                    type="button"
+                    className="analyze-voice-button"
+                    onClick={handleAnalyzeVoice}
+                    disabled={isAnalyzing}
+                  >
+                    {isAnalyzing
+                      ? "Analyzing..."
+                      : "🤖 Analyze My Explanation"}
+                  </button>
+
+                </div>
+              )}
 
 
-              {/* Voice error */}
+              {/* ------------------------------------ */}
+              {/* Voice Error */}
+              {/* ------------------------------------ */}
 
               {voiceError && (
                 <div className="voice-error">
                   {voiceError}
+                </div>
+              )}
+
+
+              {/* ------------------------------------ */}
+              {/* AI Analysis Error */}
+              {/* ------------------------------------ */}
+
+              {analysisError && (
+                <div className="voice-analysis-error">
+                  {analysisError}
+                </div>
+              )}
+
+
+              {/* ------------------------------------ */}
+              {/* AI Analysis Loading */}
+              {/* ------------------------------------ */}
+
+              {isAnalyzing && (
+                <div className="voice-analysis-loading">
+
+                  <strong>
+                    🤖 Analyzing your explanation...
+                  </strong>
+
+                  <p>
+                    The AI is comparing your explanation
+                    with the challenge picture.
+                  </p>
+
+                </div>
+              )}
+
+
+              {/* ------------------------------------ */}
+              {/* AI Analysis Result */}
+              {/* ------------------------------------ */}
+
+              {aiAnalysis && (
+                <div className="voice-analysis-result">
+
+                  <div className="voice-analysis-header">
+
+                    <h3>
+                      🤖 AI Picture Explanation Feedback
+                    </h3>
+
+                    <p>
+                      This feedback is temporary and will
+                      disappear when you refresh the page.
+                    </p>
+
+                  </div>
+
+
+                  {/* ------------------------------------ */}
+                  {/* Transcript */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.transcript && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        🎙️ Your Explanation
+                      </h4>
+
+                      <p>
+                        {aiAnalysis.transcript}
+                      </p>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Picture Relevance */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.relevance && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        🎯 Picture Relevance
+                      </h4>
+
+                      <p>
+                        {aiAnalysis.feedback.relevance}
+                      </p>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Details Mentioned */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.details_mentioned?.length > 0 && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        👀 Details You Mentioned
+                      </h4>
+
+                      <ul>
+
+                        {aiAnalysis.feedback.details_mentioned.map(
+                          (item, index) => (
+                            <li key={index}>
+                              {item}
+                            </li>
+                          )
+                        )}
+
+                      </ul>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Missing Details */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.missing_details?.length > 0 && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        🔍 Details You Missed
+                      </h4>
+
+                      <ul>
+
+                        {aiAnalysis.feedback.missing_details.map(
+                          (item, index) => (
+                            <li key={index}>
+                              {item}
+                            </li>
+                          )
+                        )}
+
+                      </ul>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Good Words */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.good_words?.length > 0 && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        ✨ Good Words
+                      </h4>
+
+                      <ul>
+
+                        {aiAnalysis.feedback.good_words.map(
+                          (item, index) => (
+                            <li key={index}>
+                              {item}
+                            </li>
+                          )
+                        )}
+
+                      </ul>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Words To Improve */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.words_to_improve?.length > 0 && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        📝 Words to Improve
+                      </h4>
+
+                      <ul>
+
+                        {aiAnalysis.feedback.words_to_improve.map(
+                          (item, index) => (
+                            <li key={index}>
+                              {item}
+                            </li>
+                          )
+                        )}
+
+                      </ul>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Clarity */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.clarity && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        💬 Clarity
+                      </h4>
+
+                      <p>
+                        {aiAnalysis.feedback.clarity}
+                      </p>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Improvements */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.improvements?.length > 0 && (
+                    <div className="analysis-card">
+
+                      <h4>
+                        🚀 Improvements
+                      </h4>
+
+                      <ul>
+
+                        {aiAnalysis.feedback.improvements.map(
+                          (item, index) => (
+                            <li key={index}>
+                              {item}
+                            </li>
+                          )
+                        )}
+
+                      </ul>
+
+                    </div>
+                  )}
+
+
+                  {/* ------------------------------------ */}
+                  {/* Overall Feedback */}
+                  {/* ------------------------------------ */}
+
+                  {aiAnalysis.feedback?.overall_feedback && (
+                    <div className="analysis-card overall-feedback">
+
+                      <h4>
+                        ⭐ Overall Feedback
+                      </h4>
+
+                      <p>
+                        {aiAnalysis.feedback.overall_feedback}
+                      </p>
+
+                    </div>
+                  )}
+
                 </div>
               )}
 
@@ -1211,6 +1535,5 @@ Example:
     </div>
   );
 }
-
 
 export default DailyChallenge;
