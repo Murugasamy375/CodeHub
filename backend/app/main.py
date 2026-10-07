@@ -11,11 +11,20 @@ from app.routes.discussions import router as discussions_router
 from app.routes.daily_challenge import (
     router as daily_challenge_router,
 )
+from app.routes.sql import router as sql_router
+from app.routes.analytics import router as analytics_router
+from app.routes.resources import router as resources_router
+from app.routes.daily_code_submission import (
+    router as daily_code_submission_router,
+)
 from app.routes.voice_submission import (
     router as voice_submission_router,
 )
 from app.routes.code_agent import (
     router as code_agent_router,
+)
+from app.routes.daily_code_submission import (
+    router as daily_code_submission_router
 )
 from app.routes.profile import router as profile_router
 # --------------------------------------------------
@@ -127,6 +136,15 @@ app.include_router(
 app.include_router(
     code_agent_router
 )
+app.include_router(
+    daily_code_submission_router
+)
+app.include_router(
+    daily_code_submission_router
+)
+app.include_router(sql_router)
+app.include_router(analytics_router)
+app.include_router(resources_router)
 @app.get("/api/health")
 def health():
     return {

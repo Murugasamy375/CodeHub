@@ -360,50 +360,515 @@
    WELCOME
    ========================================================= */
 
+/* =========================================================
+   WELCOME / DEVELOPER HERO
+   ========================================================= */
+
 .welcome-section {
-  background: linear-gradient(
-    110deg,
-    #19152a,
-    #15171e
-  );
+  position: relative;
 
-  border: 1px solid #302943;
+  width: 100%;
+  min-height: 190px;
 
+  margin-bottom: 24px;
+  padding: 30px 34px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  border: 1px solid #302b4a;
   border-radius: 16px;
 
-  padding: 25px 27px;
-
-  margin-bottom: 20px;
+  background:
+    radial-gradient(
+      circle at 85% 40%,
+      rgba(99, 102, 241, 0.14),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #151321,
+      #111827
+    );
 }
+
+
+/* subtle background grid */
+
+.welcome-section::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 32px 32px;
+
+  mask-image: linear-gradient(
+    to right,
+    black,
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   WELCOME CONTENT
+   ========================================================= */
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 620px;
+}
+
 
 .welcome-label {
-  color: #9c78ed;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-  font-size: 9px;
+  color: #8b5cf6;
 
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 700;
 
-  letter-spacing: 1.2px;
+  letter-spacing: 1.5px;
 }
+
+
+.welcome-status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 4px rgba(34, 197, 94, 0.12),
+    0 0 12px rgba(34, 197, 94, 0.5);
+}
+
+
+/* =========================================================
+   MAIN TITLE
+   ========================================================= */
 
 .welcome-section h2 {
-  margin: 7px 0 5px;
+  margin: 10px 0 8px;
 
-  color: #f3f3f6;
+  color: #f8fafc;
 
-  font-size: 21px;
+  font-size: 32px;
+  font-weight: 700;
 
-  letter-spacing: -0.4px;
+  letter-spacing: -0.8px;
 }
 
+
+.welcome-section h2 span {
+  background: linear-gradient(
+    90deg,
+    #8b5cf6,
+    #6366f1,
+    #38bdf8
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+
 .welcome-section p {
+  max-width: 560px;
+
   margin: 0;
 
-  color: #858b99;
+  color: #94a3b8;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CODE COMMAND
+   ========================================================= */
+
+.welcome-code-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 17px;
+
+  font-family:
+    "Cascadia Code",
+    "Fira Code",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+}
+
+
+.code-symbol {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+
+.code-text {
+  color: #c4b5fd;
+}
+
+
+.code-cursor {
+  color: #38bdf8;
+
+  animation: cursorBlink 1s infinite;
+}
+
+
+@keyframes cursorBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   CODE WINDOW DECORATION
+   ========================================================= */
+
+.welcome-decoration {
+  position: relative;
+  z-index: 2;
+
+  margin-right: 20px;
+}
+
+
+.code-window {
+  width: 270px;
+
+  border: 1px solid #30364d;
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #0b1120;
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(99, 102, 241, 0.08);
+}
+
+
+.code-window-header {
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 10px;
+
+  border-bottom: 1px solid #20283b;
+
+  background: #111827;
+}
+
+
+.code-window-header span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #475569;
+}
+
+
+.code-window-body {
+  padding: 15px;
+
+  color: #94a3b8;
+
+  font-family:
+    "Cascadia Code",
+    "Fira Code",
+    Consolas,
+    monospace;
+
+  font-size: 11px;
+
+  line-height: 1.9;
+}
+
+
+.code-keyword {
+  color: #c084fc;
+}
+
+
+.code-variable {
+  color: #38bdf8;
+}
+
+
+.code-string {
+  color: #4ade80;
+}
+
+
+.code-indent {
+  padding-left: 18px;
+
+  color: #cbd5e1;
+}
+
+
+/* =========================================================
+   COMPACT STREAK CARD
+   ========================================================= */
+
+.coding-streak-section {
+  width: 100%;
+
+  margin-bottom: 24px;
+
+  display: flex;
+  justify-content: flex-start;
+}
+
+.coding-streak-card {
+  width: 620px;
+  min-height: 145px;
+
+  padding: 18px 24px;
+  box-sizing: border-box;
+
+  border: 1px solid #263149;
+  border-radius: 12px;
+
+  background: #111827;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.coding-streak-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #34415d;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================================
+   STREAK HEADER
+   ========================================================= */
+
+.coding-streak-heading {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+.coding-streak-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #1f2937;
+
+  font-size: 23px;
+}
+
+
+.coding-streak-heading h2 {
+  margin: 3px 0 0;
+
+  color: #f8fafc;
+
+  font-size: 19px;
+  font-weight: 600;
+}
+
+
+.coding-streak-heading p {
+  margin: 4px 0 0;
+
+  color: #94a3b8;
 
   font-size: 12px;
 }
 
+
+/* =========================================================
+   STREAK STATS
+   ========================================================= */
+
+.coding-streak-stats {
+  display: flex;
+  align-items: center;
+
+  margin-top: 20px;
+}
+
+
+.coding-streak-stat {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+
+.coding-streak-number {
+  color: #f8fafc;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+.coding-streak-label {
+  margin-top: 7px;
+
+  color: #cbd5e1;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+.coding-streak-unit {
+  margin-top: 1px;
+  font-size: 10px;
+}
+
+.coding-streak-divider {
+  width: 1px;
+  height: 55px;
+
+  background: #263149;
+}
+
+
+/* =========================================================
+   STREAK MESSAGE
+   ========================================================= */
+
+.coding-streak-message {
+  margin-top: 12px;
+  padding: 7px 10px;
+
+  border-radius: 6px;
+
+  background: #0f172a;
+  color: #94a3b8;
+
+  font-size: 11px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .welcome-decoration {
+    display: none;
+  }
+
+  .welcome-section {
+    min-height: 180px;
+  }
+
+  .coding-streak-card {
+    width: 85%;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .welcome-section {
+    min-height: auto;
+
+    padding: 25px 22px;
+  }
+
+
+  .welcome-section h2 {
+    font-size: 26px;
+  }
+
+
+  .coding-streak-card {
+    width: 100%;
+
+    padding: 18px;
+  }
+
+
+  .coding-streak-number {
+    font-size: 28px;
+  }
+
+}
 
 /* =========================================================
    DASHBOARD CARDS
@@ -1164,4 +1629,703 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #6b7280;
+}
+/* =========================================================
+   CODING STREAK
+   ========================================================= */
+
+.streak-card {
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid #263149;
+  border-radius: 14px;
+  background: #111827;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.streak-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.streak-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+.streak-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #1f2937;
+
+  font-size: 25px;
+}
+
+
+.streak-title-wrapper h2 {
+  margin: 0;
+
+  color: #f8fafc;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+.streak-title-wrapper p {
+  margin: 5px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.streak-stats {
+  display: flex;
+  align-items: center;
+
+  margin-top: 26px;
+}
+
+
+.streak-stat {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+
+.streak-number {
+  color: #f8fafc;
+
+  font-size: 38px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+.streak-label {
+  margin-top: 9px;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.streak-unit {
+  margin-top: 3px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.streak-divider {
+  width: 1px;
+  height: 70px;
+
+  background: #263149;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.streak-message {
+  margin-top: 24px;
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  background: #0f172a;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .streak-card {
+    padding: 18px;
+  }
+
+
+  .streak-number {
+    font-size: 30px;
+  }
+
+
+  .streak-title-wrapper h2 {
+    font-size: 18px;
+  }
+
+
+  .streak-title-wrapper p {
+    font-size: 12px;
+  }
+
+}
+/* =========================================================
+   CODING STREAK
+   ========================================================= */
+
+.coding-streak-section {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+
+.coding-streak-card {
+  width: 100%;
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #263149;
+  border-radius: 14px;
+
+  background: #111827;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.coding-streak-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.coding-streak-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+.coding-streak-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #1f2937;
+
+  font-size: 25px;
+}
+
+
+.coding-streak-heading h2 {
+  margin: 4px 0 0;
+
+  color: #f8fafc;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+.coding-streak-heading p {
+  margin: 5px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.coding-streak-stats {
+  display: flex;
+  align-items: center;
+
+  margin-top: 26px;
+}
+
+
+.coding-streak-stat {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+
+.coding-streak-number {
+  color: #f8fafc;
+
+  font-size: 38px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+.coding-streak-label {
+  margin-top: 9px;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.coding-streak-unit {
+  margin-top: 3px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.coding-streak-divider {
+  width: 1px;
+  height: 70px;
+
+  background: #263149;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.coding-streak-message {
+  margin-top: 24px;
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  background: #0f172a;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .coding-streak-card {
+    padding: 18px;
+  }
+
+
+  .coding-streak-number {
+    font-size: 30px;
+  }
+
+
+  .coding-streak-heading h2 {
+    font-size: 18px;
+  }
+
+
+  .coding-streak-heading p {
+    font-size: 12px;
+  }
+
+}
+.codehub-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.codehub-brand-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.codehub-brand span {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.codehub-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.codehub-brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.codehub-brand h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.codehub-brand span {
+  display: block;
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 500;
+}
+.admin-analytics-section {
+  margin: 24px 0;
+}
+
+.admin-analytics-heading {
+  margin-bottom: 14px;
+}
+
+.admin-analytics-heading h2 {
+  margin: 4px 0;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.admin-analytics-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.admin-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.admin-analytics-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px;
+
+  background: #111827;
+  border: 1px solid #263149;
+  border-radius: 12px;
+}
+
+.admin-analytics-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+  background: #1e293b;
+
+  font-size: 20px;
+}
+
+.admin-analytics-label {
+  display: block;
+
+  color: #818cf8;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.admin-analytics-card strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #ffffff;
+  font-size: 25px;
+}
+
+@media (max-width: 900px) {
+  .admin-analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.sql-editor-page {
+  min-height: 100vh;
+  background: #0b1220;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.sql-editor-header {
+  min-height: 72px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1e293b;
+  background: #111827;
+  box-sizing: border-box;
+}
+
+.sql-editor-header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.sql-back-button,
+.sql-clear-button,
+.sql-run-button {
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.sql-back-button:hover,
+.sql-clear-button:hover {
+  background: #263449;
+}
+
+.sql-editor-header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.sql-editor-header p {
+  margin: 3px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.sql-editor-workspace {
+  flex: 1;
+  display: flex;
+  min-height: calc(100vh - 72px);
+}
+
+.sql-tables-panel {
+  width: 230px;
+  flex-shrink: 0;
+  border-right: 1px solid #1e293b;
+  background: #0f172a;
+}
+
+.sql-panel-title {
+  padding: 18px;
+  color: #818cf8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #1e293b;
+}
+
+.sql-empty-tables {
+  padding: 40px 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.sql-empty-icon {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.sql-empty-tables p {
+  margin: 0 0 6px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.sql-empty-tables span {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.sql-editor-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sql-editor-toolbar {
+  height: 50px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1e293b;
+  background: #111827;
+  box-sizing: border-box;
+}
+
+.sql-editor-toolbar > span,
+.sql-results-header span {
+  color: #818cf8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.sql-run-button {
+  background: #4f46e5;
+  border-color: #6366f1;
+  color: white;
+  font-weight: 600;
+}
+
+.sql-run-button:hover {
+  background: #4338ca;
+}
+
+.sql-query-editor {
+  flex: 1;
+  min-height: 320px;
+  padding: 20px;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  border: none;
+  background: #0b1220;
+  color: #e2e8f0;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.sql-query-editor::placeholder {
+  color: #475569;
+}
+
+.sql-results-panel {
+  min-height: 220px;
+  border-top: 1px solid #1e293b;
+  background: #0f172a;
+}
+
+.sql-results-header {
+  height: 46px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+}
+
+.sql-results-empty {
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  text-align: center;
+}
+
+.sql-results-empty div {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.sql-results-empty p {
+  margin: 0 0 5px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.sql-results-empty span {
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .sql-tables-panel {
+    display: none;
+  }
+
+  .sql-editor-header {
+    padding: 0 14px;
+  }
+
+  .sql-editor-header-left {
+    gap: 10px;
+  }
+
+  .sql-editor-header h1 {
+    font-size: 17px;
+  }
 }

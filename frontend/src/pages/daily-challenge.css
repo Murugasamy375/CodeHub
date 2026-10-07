@@ -700,3 +700,140 @@
 .overall-feedback {
   border-left: 4px solid #58a6ff;
 }
+/* =========================================================
+   CHALLENGE NAVIGATION
+   ========================================================= */
+
+.challenge-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+
+/* ---------------------------------------------------------
+   Navigation Buttons
+   --------------------------------------------------------- */
+
+.challenge-nav-button {
+  height: 40px;
+  padding: 0 16px;
+
+  border: 1px solid #263149;
+  border-radius: 8px;
+
+  background: #111827;
+  color: #e2e8f0;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* ---------------------------------------------------------
+   Hover
+   --------------------------------------------------------- */
+
+.challenge-nav-button:hover {
+  background: #182235;
+  border-color: #3b4b68;
+  transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   Primary Button
+   --------------------------------------------------------- */
+
+.challenge-nav-button.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+
+.challenge-nav-button.primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+
+/* ---------------------------------------------------------
+   Daily Challenge Link - Code Editor
+   --------------------------------------------------------- */
+
+.daily-challenge-link {
+  height: 40px;
+  padding: 0 16px;
+
+  border: 1px solid #263149;
+  border-radius: 8px;
+
+  background: #111827;
+  color: #e2e8f0;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.daily-challenge-link:hover {
+  background: #182235;
+  border-color: #3b4b68;
+  transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   Focus
+   --------------------------------------------------------- */
+
+.challenge-nav-button:focus-visible,
+.daily-challenge-link:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .challenge-navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .challenge-nav-button,
+  .daily-challenge-link {
+    width: 100%;
+  }
+
+}

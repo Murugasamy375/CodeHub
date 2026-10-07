@@ -24,6 +24,7 @@ import "./daily-challenge.css";
 function DailyChallenge({
   isAdmin,
   onBack,
+   onNavigate,
 }) {
   // --------------------------------------------------
   // Challenge state
@@ -851,7 +852,7 @@ Example:
               </small>
 
             </div>
-
+             
 
             {/* Picture */}
 
@@ -1052,7 +1053,29 @@ Example:
             </div>
 
           </div>
+           <div className="challenge-navigation">
 
+  <button
+    type="button"
+    className="challenge-nav-button primary"
+    onClick={() =>
+      onNavigate("daily-challenge-code")
+    }
+  >
+    💻 Submit Daily Challenge Code
+  </button>
+
+  <button
+    type="button"
+    className="challenge-nav-button"
+    onClick={() =>
+      onNavigate("code-editor")
+    }
+  >
+    ⌨️ Open Code Editor
+  </button>
+
+</div>
 
           {/* Picture */}
 

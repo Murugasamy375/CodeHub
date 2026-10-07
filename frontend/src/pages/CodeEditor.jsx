@@ -56,7 +56,7 @@ const initialTestCases = [
 ];
 
 
-function CodeEditor({ onBack }) {
+function CodeEditor({ onBack,onNavigate}) {
 
   const [language, setLanguage] =
     useState("python");
@@ -767,7 +767,15 @@ function CodeEditor({ onBack }) {
             </p>
 
           </div>
-
+            <button
+    type="button"
+    className="daily-challenge-link"
+    onClick={() =>
+      onNavigate("daily-challenge-code")
+    }
+  >
+    🏆 Submit Today's Challenge
+  </button>
 
         </div>
 

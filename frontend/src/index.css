@@ -25,3 +25,39 @@ body {
   background: #070b14;
   color: #f8fafc;
 }
+/* =========================================
+   DEVELOPER CREDIT
+========================================= */
+
+.developer-credit {
+  width: 100%;
+  padding: 18px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+
+  border-top: 1px solid #1e293b;
+}
+
+.developer-name {
+  color: #94a3b8;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+.developer-name:hover {
+  color: #818cf8;
+  text-shadow: 0 0 12px rgba(129, 140, 248, 0.35);
+  text-decoration: underline;
+}

@@ -1,0 +1,351 @@
+/* =========================================================
+   DAILY CHALLENGE CODE PAGE
+   ========================================================= */
+
+.daily-code-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: #070b14;
+  color: #e2e8f0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.daily-code-back {
+  height: 38px;
+  padding: 0 14px;
+
+  border: 1px solid #263149;
+  border-radius: 8px;
+
+  background: #111827;
+  color: #e2e8f0;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.daily-code-back:hover {
+  background: #182235;
+  border-color: #3b4b68;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.daily-code-header {
+  margin-top: 22px;
+  margin-bottom: 28px;
+}
+
+.daily-code-header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.daily-code-header p {
+  margin: 8px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   QUESTIONS SECTION
+   ========================================================= */
+
+.daily-code-questions {
+  background: #0b1120;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+
+  padding: 22px;
+  margin-bottom: 24px;
+}
+
+.daily-code-questions h2 {
+  margin: 0 0 18px;
+
+  color: #f8fafc;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   QUESTION LIST
+   ========================================================= */
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question {
+  padding: 16px;
+
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+}
+
+.question strong {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #f8fafc;
+  font-size: 15px;
+}
+
+.question p {
+  margin: 0;
+
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CODE SUBMISSION SECTION
+   ========================================================= */
+
+.daily-code-submission {
+  background: #0b1120;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+
+  padding: 22px;
+}
+
+
+/* =========================================================
+   SUBMISSION HEADER
+   ========================================================= */
+
+.submission-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 16px;
+}
+
+.submission-header h2 {
+  margin: 0;
+
+  color: #f8fafc;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.submission-header p {
+  margin: 6px 0 0;
+
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   DRAFT BADGE
+   ========================================================= */
+
+.draft-status {
+  padding: 6px 10px;
+
+  border: 1px solid #334155;
+  border-radius: 6px;
+
+  background: #111827;
+  color: #94a3b8;
+
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DAILY CODE EDITOR
+   ========================================================= */
+
+.daily-code-editor {
+  width: 100%;
+  min-height: 500px;
+
+  box-sizing: border-box;
+
+  padding: 18px;
+
+  resize: vertical;
+
+  border: 1px solid #263149;
+  border-radius: 10px;
+
+  background: #0a0f1a;
+  color: #e2e8f0;
+
+  font-family:
+    "Cascadia Code",
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  outline: none;
+
+  tab-size: 4;
+}
+
+.daily-code-editor::placeholder {
+  color: #64748b;
+}
+
+.daily-code-editor:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+}
+
+
+/* =========================================================
+   SUBMISSION ACTIONS
+   ========================================================= */
+
+.submission-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 16px;
+}
+
+
+/* =========================================================
+   SAVE STATUS
+   ========================================================= */
+
+.save-status {
+  color: #64748b;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.submit-code-button {
+  height: 40px;
+  padding: 0 18px;
+
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.submit-code-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.submit-code-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .daily-code-page {
+    padding: 16px;
+  }
+
+  .daily-code-header h1 {
+    font-size: 25px;
+  }
+
+  .submission-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .daily-code-editor {
+    min-height: 400px;
+  }
+
+  .submission-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .submit-code-button {
+    width: 100%;
+  }
+
+}
+.question-text {
+  margin: 0;
+
+  color: #cbd5e1;
+
+  font-family:
+    "Cascadia Code",
+    "Consolas",
+    monospace;
+
+  font-size: 14px;
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.daily-code-loading {
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.daily-code-error {
+  margin-top: 24px;
+  padding: 16px;
+
+  border: 1px solid #7f1d1d;
+  border-radius: 8px;
+
+  background: #1c1010;
+  color: #fca5a5;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { getAdminAnalytics } from "../services/analyticsService";
 import { signOut } from "../services/authService";
 import { getTaskCount } from "../services/taskService";
 import { getCurrentMeeting } from "../services/meetingService";
@@ -11,7 +11,7 @@ function Dashboard({ session,profile, onNavigate }) {
   const [activeMenu, setActiveMenu] = useState("dashboard");
 
   const [loggingOut, setLoggingOut] = useState(false);
-
+   const [analytics, setAnalytics] = useState(null);
   // --------------------------------------------------
   // TASKS
   // --------------------------------------------------
@@ -106,12 +106,30 @@ function Dashboard({ session,profile, onNavigate }) {
   }, []);
 
   // =========================================================
-  
+   useEffect(() => {
+  if (profile?.role !== "admin") {
+    return;
+  }
+
+  const loadAnalytics = async () => {
+    try {
+      const data = await getAdminAnalytics();
+      setAnalytics(data);
+    } catch (error) {
+      console.error(
+        "Failed to load admin analytics:",
+        error
+      );
+    }
+  };
+
+  loadAnalytics();
+}, [profile]);
 
   // =========================================================
   // NAVIGATION
   // =========================================================
-
+  
   const handleNavigation = (menu) => {
     setActiveMenu(menu);
 
@@ -134,7 +152,10 @@ function Dashboard({ session,profile, onNavigate }) {
       onNavigate("challenge");
       return;
     }
-
+    if (menu === "learning-resources") {
+  onNavigate("learning-resources");
+  return;
+}
     if (menu === "discussions") {
       onNavigate("discussions");
       return;
@@ -294,19 +315,25 @@ function Dashboard({ session,profile, onNavigate }) {
 
         <div className="sidebar-brand">
 
-          <div className="brand-logo">
-            C
-          </div>
+  <div className="codehub-brand">
 
-          <div>
-            <h2>CodeHub</h2>
+    <img
+      src="/codehub-logo.png"
+      alt="CodeHub Logo"
+      className="codehub-brand-logo"
+    />
 
-            <span>
-              Developer Workspace
-            </span>
-          </div>
+    <div>
+      <h2>CodeHub</h2>
 
-        </div>
+      <span>
+        Developer Workspace
+      </span>
+    </div>
+
+  </div>
+
+</div>
 
 
         {/* NAVIGATION */}
@@ -333,24 +360,7 @@ function Dashboard({ session,profile, onNavigate }) {
           </button>
 
 
-          {/* CODE EDITOR */}
-
-          <button
-            className={
-              activeMenu === "code-editor"
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              handleNavigation("code-editor")
-            }
-          >
-            <span className="nav-icon">
-              {"</>"}
-            </span>
-
-            Code Editor
-          </button>
+          
 
 
           {/* TODAY'S CHALLENGE */}
@@ -371,7 +381,48 @@ function Dashboard({ session,profile, onNavigate }) {
 
             Today's Challenge
           </button>
+           {/* CODE EDITOR */}
 
+          <button
+            className={
+              activeMenu === "code-editor"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              handleNavigation("code-editor")
+            }
+          >
+            <span className="nav-icon">
+              {"</>"}
+            </span>
+
+            Code Editor
+          </button>
+          <button
+  type="button"
+  onClick={() => onNavigate("sql-editor")}
+>
+  🗄️ SQL Editor
+</button>
+{/* LEARNING RESOURCES */}
+
+<button
+  className={
+    activeMenu === "learning-resources"
+      ? "active"
+      : ""
+  }
+  onClick={() =>
+    handleNavigation("learning-resources")
+  }
+>
+  <span className="nav-icon">
+    📚
+  </span>
+
+  Learning Resources
+</button>
 
           {/* MY TASKS */}
 
@@ -567,25 +618,284 @@ function Dashboard({ session,profile, onNavigate }) {
             WELCOME
         ===================================================== */}
 
-        <section className="welcome-section">
+        {/* =====================================================
+    WELCOME
+===================================================== */}
 
-          <span className="welcome-label">
-            WELCOME BACK 👋
+<section className="welcome-section">
+
+  <div className="welcome-content">
+
+    <span className="welcome-label">
+      <span className="welcome-status-dot" />
+      DEVELOPER WORKSPACE
+    </span>
+
+    <h2>
+      Build. Solve. <span>Grow.</span>
+    </h2>
+
+    <p>
+      Every line of code takes you one step closer
+      to becoming a better developer.
+    </p>
+
+    <div className="welcome-code-line">
+      <span className="code-symbol">&gt;</span>
+      <span className="code-text">
+        keep_coding();
+      </span>
+      <span className="code-cursor">|</span>
+    </div>
+
+  </div>
+
+  <div className="welcome-decoration">
+
+    <div className="code-window">
+
+      <div className="code-window-header">
+        <span />
+        <span />
+        <span />
+      </div>
+
+      <div className="code-window-body">
+
+        <div>
+          <span className="code-keyword">
+            const
+          </span>{" "}
+          <span className="code-variable">
+            goal
+          </span>{" "}
+          ={" "}
+          <span className="code-string">
+            "level_up"
+          </span>;
+        </div>
+
+        <div>
+          <span className="code-keyword">
+            while
+          </span>{" "}
+          (<span className="code-variable">
+            learning
+          </span>) {"{"}
+        </div>
+
+        <div className="code-indent">
+          solveProblems();
+        </div>
+
+        <div className="code-indent">
+          buildProjects();
+        </div>
+
+        <div>
+          {"}"}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</section>
+  {profile?.role === "admin" && analytics && (
+  <section className="admin-analytics-section">
+
+    <div className="admin-analytics-heading">
+      <div>
+        <span className="card-label">
+          ADMIN OVERVIEW
+        </span>
+
+        <h2>Profile Analytics</h2>
+
+        <p>
+          Quick overview of CodeHub activity
+        </p>
+      </div>
+    </div>
+
+
+    <div className="admin-analytics-grid">
+
+      <div className="admin-analytics-card">
+        <span className="admin-analytics-icon">
+          👥
+        </span>
+
+        <div>
+          <span className="admin-analytics-label">
+            REGISTERED USERS
+          </span>
+
+          <strong>
+            {analytics.registered_users ?? 0}
+          </strong>
+        </div>
+      </div>
+
+
+      <div className="admin-analytics-card">
+        <span className="admin-analytics-icon">
+          ⚡
+        </span>
+
+        <div>
+          <span className="admin-analytics-label">
+            CHALLENGE USERS
+          </span>
+
+          <strong>
+            {analytics.challenge_users ?? 0}
+          </strong>
+        </div>
+      </div>
+
+
+      <div className="admin-analytics-card">
+        <span className="admin-analytics-icon">
+          💻
+        </span>
+
+        <div>
+          <span className="admin-analytics-label">
+            CODE SUBMISSIONS
+          </span>
+
+          <strong>
+            {analytics.total_code_submissions ?? 0}
+          </strong>
+        </div>
+      </div>
+
+
+      <div className="admin-analytics-card">
+        <span className="admin-analytics-icon">
+          🎙️
+        </span>
+
+        <div>
+          <span className="admin-analytics-label">
+            VOICE SUBMISSIONS
+          </span>
+
+          <strong>
+            {analytics.total_voice_submissions ?? 0}
+          </strong>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+)}
+
+        {/* =====================================================
+    CODING STREAK
+===================================================== */}
+
+<section className="coding-streak-section">
+
+  <div className="coding-streak-card">
+
+    {/* HEADER */}
+
+    <div className="coding-streak-header">
+
+      <div className="coding-streak-heading">
+
+        <div className="coding-streak-icon">
+          🔥
+        </div>
+
+        <div>
+          <span className="card-label">
+            CONSISTENCY
           </span>
 
           <h2>
-            Ready to build something,{" "}
-            {userName.split(" ")[0]}?
+            Coding Streak
           </h2>
 
           <p>
-            Keep your coding practice,
-            challenges and tasks organized.
+            Keep solving challenges every day
           </p>
+        </div>
 
-        </section>
+      </div>
+
+    </div>
 
 
+    {/* STATS */}
+
+    <div className="coding-streak-stats">
+
+      {/* CURRENT STREAK */}
+
+      <div className="coding-streak-stat">
+
+        <div className="coding-streak-number">
+          {profile?.current_streak ?? 0}
+        </div>
+
+        <div className="coding-streak-label">
+          Current Streak
+        </div>
+
+        <div className="coding-streak-unit">
+          days
+        </div>
+
+      </div>
+
+
+      {/* DIVIDER */}
+
+      <div className="coding-streak-divider" />
+
+
+      {/* BEST STREAK */}
+
+      <div className="coding-streak-stat">
+
+        <div className="coding-streak-number">
+          {profile?.longest_streak ?? 0}
+        </div>
+
+        <div className="coding-streak-label">
+          Best Streak
+        </div>
+
+        <div className="coding-streak-unit">
+          days
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* MESSAGE */}
+
+    <div className="coding-streak-message">
+
+      {(profile?.current_streak ?? 0) > 0
+        ? "Keep showing up every day! 🚀"
+        : "Complete today's challenge to start your streak! 💪"
+      }
+
+    </div>
+
+  </div>
+
+</section>
         {/* =====================================================
             DASHBOARD CARDS
         ===================================================== */}

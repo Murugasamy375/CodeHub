@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-
+import SQLEditor from "./pages/SQLEditor";
 import {
   getCurrentSession,
   subscribeToAuthChanges,
 } from "./services/authService";
 
 import { getMyProfile } from "./services/profileService";
+
 import AdminVoiceRecordings from "./pages/AdminVoiceRecordings";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -15,9 +16,10 @@ import Tasks from "./pages/Tasks";
 import Discussions from "./pages/Discussions";
 import CreateMeeting from "./pages/CreateMeeting";
 import DailyChallenge from "./pages/DailyChallenge";
+import DailyChallengeCode from "./pages/DailyChallengeCode";
+import LearningResources from "./pages/LearningResources";
 
 import "./App.css";
-
 
 function App() {
   const [session, setSession] = useState(null);
@@ -199,17 +201,47 @@ function App() {
 
 
   // =========================================================
+  // LEARNING RESOURCES
+  // =========================================================
+
+  if (page === "learning-resources") {
+
+    return (
+      <div className="app-page-with-credit">
+
+        <LearningResources
+          profile={profile}
+          onBack={() =>
+            setPage("dashboard")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
+    );
+
+  }
+
+
+  // =========================================================
   // TASKS
   // =========================================================
 
   if (page === "tasks") {
 
     return (
-      <Tasks
-        onBack={() =>
-          setPage("dashboard")
-        }
-      />
+      <div className="app-page-with-credit">
+
+        <Tasks
+          onBack={() =>
+            setPage("dashboard")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
     );
 
   }
@@ -222,11 +254,18 @@ function App() {
   if (page === "code-editor") {
 
     return (
-      <CodeEditor
-        onBack={() =>
-          setPage("dashboard")
-        }
-      />
+      <div className="app-page-with-credit">
+
+        <CodeEditor
+          onBack={() =>
+            setPage("dashboard")
+          }
+          onNavigate={setPage}
+        />
+
+        <DeveloperCredit />
+
+      </div>
     );
 
   }
@@ -239,23 +278,50 @@ function App() {
   if (page === "discussions") {
 
     return (
-      <Discussions
-        onBack={() =>
-          setPage("dashboard")
-        }
-      />
+      <div className="app-page-with-credit">
+
+        <Discussions
+          onBack={() =>
+            setPage("dashboard")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
     );
 
   }
- if (page === "admin-voice-recordings") {
+
+if (page === "sql-editor") {
   return (
-    <AdminVoiceRecordings
-      onBack={() =>
-        setPage("dashboard")
-      }
+    <SQLEditor
+      onBack={() => setPage("dashboard")}
     />
   );
 }
+  // =========================================================
+  // ADMIN VOICE RECORDINGS
+  // =========================================================
+
+  if (page === "admin-voice-recordings") {
+
+    return (
+      <div className="app-page-with-credit">
+
+        <AdminVoiceRecordings
+          onBack={() =>
+            setPage("dashboard")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
+    );
+
+  }
+
 
   // =========================================================
   // CREATE MEETING
@@ -264,11 +330,17 @@ function App() {
   if (page === "create-meeting") {
 
     return (
-      <CreateMeeting
-        onBack={() =>
-          setPage("dashboard")
-        }
-      />
+      <div className="app-page-with-credit">
+
+        <CreateMeeting
+          onBack={() =>
+            setPage("dashboard")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
     );
 
   }
@@ -281,14 +353,44 @@ function App() {
   if (page === "challenge") {
 
     return (
-      <DailyChallenge
-        isAdmin={
-          profile.role === "admin"
-        }
-        onBack={() =>
-          setPage("dashboard")
-        }
-      />
+      <div className="app-page-with-credit">
+
+        <DailyChallenge
+          isAdmin={
+            profile.role === "admin"
+          }
+          onBack={() =>
+            setPage("dashboard")
+          }
+          onNavigate={setPage}
+        />
+
+        <DeveloperCredit />
+
+      </div>
+    );
+
+  }
+
+
+  // =========================================================
+  // DAILY CHALLENGE CODE SUBMISSION
+  // =========================================================
+
+  if (page === "daily-challenge-code") {
+
+    return (
+      <div className="app-page-with-credit">
+
+        <DailyChallengeCode
+          onBack={() =>
+            setPage("challenge")
+          }
+        />
+
+        <DeveloperCredit />
+
+      </div>
     );
 
   }
@@ -299,11 +401,48 @@ function App() {
   // =========================================================
 
   return (
-    <Dashboard
-      session={session}
-      profile={profile}
-      onNavigate={setPage}
-    />
+    <div className="app-page-with-credit">
+
+      <Dashboard
+        session={session}
+        profile={profile}
+        onNavigate={setPage}
+      />
+
+      <DeveloperCredit />
+
+    </div>
+  );
+}
+
+
+// =============================================================
+// DEVELOPER CREDIT
+// =============================================================
+
+function DeveloperCredit() {
+  return (
+    <footer className="developer-credit">
+
+      <span>
+        Built by {" "}
+      </span>
+
+      <a
+        href="https://portfolio-weld-nine-66.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="developer-name"
+        title="Visit my portfolio"
+      >
+         Murugasamy
+      </a>
+
+      <span>
+        {" "}• Ex-Deloitte
+      </span>
+
+    </footer>
   );
 }
 
