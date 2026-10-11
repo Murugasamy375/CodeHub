@@ -24,7 +24,6 @@ import "./daily-challenge.css";
 function DailyChallenge({
   isAdmin,
   onBack,
-   onNavigate,
 }) {
   // --------------------------------------------------
   // Challenge state
@@ -62,6 +61,21 @@ const [analysisError, setAnalysisError] =
 
   const [picture, setPicture] =
     useState(null);
+
+  const [picturePreviewUrl, setPicturePreviewUrl] =
+    useState("");
+
+  useEffect(() => {
+    if (!picture) {
+      setPicturePreviewUrl("");
+      return;
+    }
+
+    const previewUrl = URL.createObjectURL(picture);
+    setPicturePreviewUrl(previewUrl);
+
+    return () => URL.revokeObjectURL(previewUrl);
+  }, [picture]);
 
   const [publishing, setPublishing] =
     useState(false);
@@ -852,7 +866,7 @@ Example:
               </small>
 
             </div>
-             
+
 
             {/* Picture */}
 
@@ -862,24 +876,33 @@ Example:
                 Challenge Picture
               </label>
 
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                onChange={(event) =>
-                  setPicture(
-                    event.target.files?.[0] ||
-                    null
-                  )
-                }
-              />
+              <label className="challenge-upload-zone">
+                <span className="challenge-upload-icon" aria-hidden="true">＋</span>
+                <strong>{picture ? "Change challenge picture" : "Choose a challenge picture"}</strong>
+                <span>PNG, JPG or WEBP</span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(event) =>
+                    setPicture(event.target.files?.[0] || null)
+                  }
+                />
+              </label>
 
               {picture && (
-                <div className="selected-picture">
-
-                  Selected:
-                  {" "}
-                  {picture.name}
-
+                <div className="challenge-picture-preview-card">
+                  <img src={picturePreviewUrl} alt="Selected challenge preview" />
+                  <div className="challenge-picture-preview-details">
+                    <strong>Image selected</strong>
+                    <span>{picture.name}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="challenge-clear-picture"
+                    onClick={() => setPicture(null)}
+                  >
+                    Remove
+                  </button>
                 </div>
               )}
 
@@ -1053,29 +1076,7 @@ Example:
             </div>
 
           </div>
-           <div className="challenge-navigation">
 
-  <button
-    type="button"
-    className="challenge-nav-button primary"
-    onClick={() =>
-      onNavigate("daily-challenge-code")
-    }
-  >
-    💻 Submit Daily Challenge Code
-  </button>
-
-  <button
-    type="button"
-    className="challenge-nav-button"
-    onClick={() =>
-      onNavigate("code-editor")
-    }
-  >
-    ⌨️ Open Code Editor
-  </button>
-
-</div>
 
           {/* Picture */}
 
@@ -1506,11 +1507,8 @@ Example:
                   {/* ------------------------------------ */}
 
                   {aiAnalysis.feedback?.improvements?.length > 0 && (
-                    <div className="analysis-card">
-
-                      <h4>
-                        🚀 Improvements
-                      </h4>
+                    <div className="analysis-card transcript-card">
+  <h4>🎙️ Your Explanation</h4>
 
                       <ul>
 

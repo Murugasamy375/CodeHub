@@ -216,7 +216,7 @@ function App() {
           }
         />
 
-        <DeveloperCredit />
+        
 
       </div>
     );
@@ -239,7 +239,7 @@ function App() {
           }
         />
 
-        <DeveloperCredit />
+        
 
       </div>
     );
@@ -286,7 +286,7 @@ function App() {
           }
         />
 
-        <DeveloperCredit />
+        
 
       </div>
     );
@@ -315,7 +315,7 @@ if (page === "sql-editor") {
           }
         />
 
-        <DeveloperCredit />
+ 
 
       </div>
     );
@@ -338,7 +338,7 @@ if (page === "sql-editor") {
           }
         />
 
-        <DeveloperCredit />
+        
 
       </div>
     );
@@ -365,7 +365,7 @@ if (page === "sql-editor") {
           onNavigate={setPage}
         />
 
-        <DeveloperCredit />
+   
 
       </div>
     );
@@ -388,7 +388,7 @@ if (page === "sql-editor") {
           }
         />
 
-        <DeveloperCredit />
+     
 
       </div>
     );

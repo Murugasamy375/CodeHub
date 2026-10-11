@@ -318,7 +318,7 @@ function Dashboard({ session,profile, onNavigate }) {
   <div className="codehub-brand">
 
     <img
-      src="/codehub-logo.png"
+      src="codehub-logo.png"
       alt="CodeHub Logo"
       className="codehub-brand-logo"
     />
