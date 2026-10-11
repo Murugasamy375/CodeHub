@@ -84,3 +84,32 @@ export const deleteResource = async (resourceId) => {
 
   return response.data;
 };
+// =====================================================
+// ANNOUNCEMENTS
+// =====================================================
+
+// Get all announcements
+export const getAnnouncements = async () => {
+  return getResources("announcements", "general");
+};
+
+// Publish a text announcement with optional audio
+export const createAnnouncement = async ({
+  title,
+  message,
+  audioFile = null,
+}) => {
+  return createResource({
+    title,
+    description: message,
+    category: "announcements",
+    topic: "general",
+    resource_type: "announcement",
+    file: audioFile,
+  });
+};
+
+// Delete an announcement
+export const deleteAnnouncement = async (announcementId) => {
+  return deleteResource(announcementId);
+};

@@ -3,8 +3,11 @@ import { getAdminAnalytics } from "../services/analyticsService";
 import { signOut } from "../services/authService";
 import { getTaskCount } from "../services/taskService";
 import { getCurrentMeeting } from "../services/meetingService";
+import { createResource, deleteResource, getResources } from "../services/resourceService";
+import AnnouncementsPopup from "../components/AnnounecementsPopup";
 
 import "./dashboard.css";
+import "./announcement-popup.css";
 
 
 function Dashboard({ session,profile, onNavigate }) {
@@ -25,6 +28,22 @@ function Dashboard({ session,profile, onNavigate }) {
 
   const [meeting, setMeeting] = useState(null);
   const [meetingLoading, setMeetingLoading] = useState(true);
+
+  // --------------------------------------------------
+  // ANNOUNCEMENTS (reuses the existing resources table)
+  // --------------------------------------------------
+  const [announcements, setAnnouncements] = useState([]);
+  const [announcementOpen, setAnnouncementOpen] = useState(false);
+  const readAnnouncementsKey = `codehub-read-announcements-${session?.user?.id || "guest"}`;
+  const [readAnnouncementIds, setReadAnnouncementIds] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem(`codehub-read-announcements-${session?.user?.id || "guest"}`) || "[]");
+    } catch {
+      return [];
+    }
+  });
+  const [announcementLoading, setAnnouncementLoading] = useState(false);
+  const [announcementError, setAnnouncementError] = useState("");
 
   // --------------------------------------------------
   // PROFILE / ADMIN
@@ -125,6 +144,83 @@ function Dashboard({ session,profile, onNavigate }) {
 
   loadAnalytics();
 }, [profile]);
+
+  // =========================================================
+  // ANNOUNCEMENTS
+  // =========================================================
+  const loadAnnouncements = async () => {
+    try {
+      setAnnouncementLoading(true);
+      setAnnouncementError("");
+      const items = await getResources("announcements", "general");
+      setAnnouncements(items.filter((item) => item.type === "announcement"));
+    } catch (error) {
+      console.error("Failed to load announcements:", error);
+      setAnnouncementError("Unable to load announcements. Please try again.");
+    } finally {
+      setAnnouncementLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadAnnouncements();
+  }, []);
+
+  const openAnnouncements = () => {
+    setAnnouncementOpen(true);
+    setAnnouncementError("");
+    const ids = announcements.map((item) => item.id);
+    setReadAnnouncementIds(ids);
+    try {
+      localStorage.setItem(readAnnouncementsKey, JSON.stringify(ids));
+    } catch (error) {
+      console.warn("Could not save announcement read state:", error);
+    }
+  };
+
+  const hasUnreadAnnouncements = announcements.some(
+    (item) => !readAnnouncementIds.includes(item.id)
+  );
+
+  const publishAnnouncement = async ({ title, description, file }) => {
+    if (profile?.role !== "admin") {
+      throw new Error("Only admins can publish announcements.");
+    }
+
+    setAnnouncementError("");
+    await createResource({
+      title,
+      description,
+      category: "announcements",
+      topic: "general",
+      resource_type: "announcement",
+      file,
+    });
+    await loadAnnouncements();
+  };
+
+  const removeAnnouncement = async (id) => {
+    if (profile?.role !== "admin") {
+      throw new Error("Only admins can delete announcements.");
+    }
+
+    try {
+      await deleteResource(id);
+      setAnnouncements((current) => current.filter((item) => item.id !== id));
+      setReadAnnouncementIds((current) => {
+        const next = current.filter((announcementId) => announcementId !== id);
+        try {
+          localStorage.setItem(readAnnouncementsKey, JSON.stringify(next));
+        } catch (error) {
+          console.warn("Could not update announcement read state:", error);
+        }
+        return next;
+      });
+    } catch (error) {
+      console.error("Failed to delete announcement:", error);
+      throw error;
+    }
+  };
 
   // =========================================================
   // NAVIGATION
@@ -588,6 +684,17 @@ function Dashboard({ session,profile, onNavigate }) {
 
 
           <div className="topbar-user">
+
+            <button
+              type="button"
+              className={`announcement-bell ${hasUnreadAnnouncements ? "has-unread" : "all-read"}`}
+              onClick={openAnnouncements}
+              aria-label="Open announcements"
+              title={hasUnreadAnnouncements ? "You have unread announcements" : "All announcements read"}
+            >
+              Announcements
+              <span className="announcement-status-text">{hasUnreadAnnouncements ? "UNREAD" : "READ"}</span>
+            </button>
 
             <div className="topbar-avatar">
               {userName
@@ -1360,6 +1467,16 @@ function Dashboard({ session,profile, onNavigate }) {
 
       </main>
 
+      <AnnouncementsPopup
+        open={announcementOpen}
+        onClose={() => setAnnouncementOpen(false)}
+        profile={profile}
+        announcements={announcements}
+        loading={announcementLoading}
+        error={announcementError}
+        onPublish={publishAnnouncement}
+        onDelete={removeAnnouncement}
+      />
     </div>
   );
 }

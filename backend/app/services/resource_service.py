@@ -27,6 +27,7 @@ ALLOWED_CATEGORIES = {
     "aptitude",
     "core_cs",
     "coding",
+    "announcements",
 }
 
 ALLOWED_TOPICS = {
@@ -42,6 +43,9 @@ ALLOWED_TOPICS = {
     "coding": {
         "dsa",
     },
+     "announcements": {
+        "general",
+    },
 }
 
 ALLOWED_TYPES = {
@@ -49,6 +53,7 @@ ALLOWED_TYPES = {
     "document",
     "link",
     "youtube",
+    "announcement",
 }
 
 
@@ -320,7 +325,118 @@ async def create_resource(
             )
 
         return response.data[0]
+        # =====================================================
+    # ANNOUNCEMENT: TEXT + OPTIONAL AUDIO
+    # =====================================================
 
+    if resource_type == "announcement":
+        if url and url.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="Announcements do not accept URLs.",
+            )
+
+        storage_path = None
+
+        if file:
+            filename = file.filename or ""
+            extension = (
+                filename.rsplit(".", 1)[-1].lower()
+                if "." in filename
+                else ""
+            )
+
+            allowed_extensions = {
+                "mp3",
+                "wav",
+                "ogg",
+                "m4a",
+                "webm",
+                "aac",
+            }
+
+            if extension not in allowed_extensions:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Unsupported audio format.",
+                )
+
+            file_bytes = await file.read()
+
+            if not file_bytes:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Audio file is empty.",
+                )
+
+            storage_path = (
+                f"announcements/{uuid.uuid4().hex}_{filename}"
+            )
+
+            try:
+                supabase.storage.from_(
+                    RESOURCE_BUCKET
+                ).upload(
+                    storage_path,
+                    file_bytes,
+                    {
+                        "content-type": (
+                            file.content_type
+                            or "application/octet-stream"
+                        ),
+                        "upsert": "false",
+                    },
+                )
+            except Exception as error:
+                print("Announcement audio upload failed:", error)
+                raise HTTPException(
+                    status_code=500,
+                    detail="Failed to upload announcement audio.",
+                )
+
+        try:
+            response = (
+                supabase.table("resources")
+                .insert({
+                    "title": title,
+                    "description": (
+                        description.strip()
+                        if description
+                        else None
+                    ),
+                    "category": "announcements",
+                    "topic": "general",
+                    "type": "announcement",
+                    "url": None,
+                    "file_path": storage_path,
+                    "created_by": user.id,
+                    "is_active": True,
+                })
+                .execute()
+            )
+
+            if not response or not response.data:
+                raise RuntimeError(
+                    "Announcement record was not created."
+                )
+
+            return response.data[0]
+
+        except Exception as error:
+            if storage_path:
+                try:
+                    supabase.storage.from_(
+                        RESOURCE_BUCKET
+                    ).remove([storage_path])
+                except Exception:
+                    pass
+
+            print("Announcement creation failed:", error)
+
+            raise HTTPException(
+                status_code=500,
+                detail="Failed to create announcement.",
+            )
     # =====================================================
     # FILE RESOURCE
     # =====================================================
